@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{%block title%}{%endblock%}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        nav form {
+            font-family: sans-serif;
+        }
+
+        nav a {
+            font-family: sans-serif;
+        }
+
+        .container {
+            font-family: sans-serif;
+        }
+
+        .container div,
+        h1 {
+            font-family: sans-serif;
+            font-weight: 600;
+        }
+
+
+
+        .pagination>li>a {
+            background-color: white;
+            color: #5A4181;
+        }
+
+        .pagination>li>a:focus,
+        .pagination>li>a:hover,
+        .pagination>li>span:focus,
+        .pagination>li>span:hover {
+            color: #fff;
+            background-color: #5a5a5a;
+            border-color: #ddd;
+        }
+
+        .pagination>.active>a {
+            color: white;
+            background-color: #5a5a5a !Important;
+            border: solid 1px #5a5a5a !Important;
+        }
+
+        .pagination>.active>a:hover {
+            background-color: #5A4181 !Important;
+            border: solid 1px #5A4181;
+        }
+        .image-container {
+            height: 100%;
+            overflow: hidden;
+        }
+        .image-container img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+ <nav class="navbar navbar-expand-lg bg-body-light my-3">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-3" href="#" style="font-family:'sans-serif'">ABlog</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Push everything to the right -->
+      <div class="d-flex ms-auto align-items-center">
+        <!-- Search Form -->
+        <form class="d-flex me-3" action="{% url 'search' %}">
+          <input class="form-control me-2" type="text" name="query" placeholder="Search">
+          <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
+
+        {% if not user.is_authenticated %}
+          <a href="{% url 'login' %}" class="btn btn-dark me-2">Login</a>
+          <a href="{% url 'register' %}" class="btn btn-dark">Create Account</a>
+        {% else %}
+          <span class="me-3 fw-semibold" style="font-size:18px;">{{ user.get_full_name }}</span>
+          <form action="{% url 'auth_logout' %}" method="POST" class="m-0">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-dark" value="Logout">
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+    <div class="container py-3">
+        {%block body%}{%endblock%}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
