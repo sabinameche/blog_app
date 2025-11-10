@@ -40,7 +40,7 @@ python manage.py migrate
 
 # Start the server
 python manage.py runserver
-
+```
 # and visit the url 
 
 # Screenshots of the blog
